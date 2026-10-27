@@ -275,3 +275,5 @@ textarea { width: 100%; min-height: 100px; border: 1px solid var(--line); border
 /* Na prática */
 .phrase-row { display: grid; grid-template-columns: 40px 1fr; gap: 12px; align-items: start; }
 @media (max-width: 480px) { .dline { grid-template-columns: 1fr; } }
+.loop-row { border-top: 1px dashed var(--line); padding-top: 10px; }
+#mp3 .acts .mark { color: var(--accent); border-color: var(--accent); }

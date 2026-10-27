@@ -154,6 +154,8 @@
   let current = null;
   const recordings = {}; // gravações só em memória
   function stopAll() {
+    clearTimeout(loopTimer); loopTimer = null;
+    document.querySelectorAll('[data-role="loopinfo"]').forEach((x) => { if (x.dataset.wait) { x.textContent = ""; delete x.dataset.wait; } });
     if (current && current.audio) current.audio.pause();
     document.querySelectorAll(".play-big").forEach((b) => { b.innerHTML = ICON.play; b.setAttribute("aria-label", "Tocar"); });
     current = null;
@@ -171,6 +173,9 @@
       <select id="${id}" data-action="setrate">${RATES.map((x) => `<option value="${x}" ${x === r ? "selected" : ""}>${rateLabel(x)}</option>`).join("")}</select></label>`;
   }
   const players = new Set();
+  // Repetir (escuta livre): não é salvo, não conta na avaliação, desliga com um toque.
+  let loopOn = false, loopTimer = null;
+  const loopLabel = () => loopOn ? "Repetir: ligado" : "Repetir: desligado";
   // Bloco único de controles para atividades sem o diálogo completo: botões de ouvir + velocidade.
   const audioBox = (buttons, note) => `<div class="player audio-box">${buttons ? `<div class="row">${buttons}</div>` : ""}
       ${note ? `<p class="small muted">${note}</p>` : ""}<div class="row">${rateSelect("rate-act")}</div></div>`;
@@ -203,6 +208,10 @@
         </div>
         ${rateSelect("rate-act")}
       </div>
+      <div class="row loop-row">
+        <button class="btn small ${loopOn ? "primary" : ""}" data-action="loop" aria-pressed="${loopOn}">${loopLabel()}</button>
+        <span class="small muted" data-role="loopinfo" aria-live="polite"></span>
+      </div>
     </div>`;
   }
   function mountPlayers(root, e, st) {
@@ -230,17 +239,40 @@
       };
       audio.addEventListener("timeupdate", update);
       audio.addEventListener("loadedmetadata", update);
+      const info = el.querySelector('[data-role="loopinfo"]');
+      const showFree = () => { const n = (st.freeListens || {})[key] || 0; if (info && !info.dataset.wait) info.textContent = loopOn ? `Escuta livre: ${n} volta${n === 1 ? "" : "s"}, fora da avaliação.` : ""; };
+      showFree();
       audio.addEventListener("play", () => {
+        if (el.dataset.looping === "1") { el.dataset.looping = ""; el.dataset.counted = "playing"; return; }
         if (el.dataset.count && audio.currentTime < 0.6 && el.dataset.counted !== "playing") { st.listens[key] = (st.listens[key] || 0) + 1; save(); showListens(); }
         el.dataset.counted = "playing";
       });
       audio.addEventListener("ended", () => {
-        el.dataset.counted = ""; btn.innerHTML = ICON.play; btn.setAttribute("aria-label", "Tocar");
+        el.dataset.counted = "";
         document.querySelectorAll(".line.now").forEach((l) => l.classList.remove("now"));
+        if (loopOn) {
+          if (info) { info.dataset.wait = "1"; info.textContent = "Pausa de 3 segundos. Recomeça em seguida."; }
+          loopTimer = setTimeout(() => {
+            loopTimer = null; if (info) delete info.dataset.wait;
+            if (!loopOn) { btn.innerHTML = ICON.play; return; }
+            st.freeListens = st.freeListens || {}; st.freeListens[key] = (st.freeListens[key] || 0) + 1; save(); showFree();
+            el.dataset.looping = "1"; audio.currentTime = 0; applyRate(audio, P.settings.rate || 1); current = { audio };
+            audio.play().catch(() => { btn.innerHTML = ICON.play; });
+          }, 3000);
+          return;
+        }
+        btn.innerHTML = ICON.play; btn.setAttribute("aria-label", "Tocar");
       });
+      el._loop = () => {
+        loopOn = !loopOn;
+        if (!loopOn) { clearTimeout(loopTimer); loopTimer = null; if (info) delete info.dataset.wait; if (audio.paused) btn.innerHTML = ICON.play; }
+        app.querySelectorAll('[data-action="loop"]').forEach((b) => { b.textContent = loopLabel(); b.setAttribute("aria-pressed", String(loopOn)); b.classList.toggle("primary", loopOn); });
+        showFree();
+        toast(loopOn ? "Repetir ligado: o diálogo recomeça após 3 segundos." : "Repetir desligado.");
+      };
       seek.addEventListener("input", () => { const d = audio.duration || 0; if (d) audio.currentTime = (seek.value / 1000) * d; });
       el._toggle = () => {
-        if (!audio.paused) { audio.pause(); btn.innerHTML = ICON.play; btn.setAttribute("aria-label", "Tocar"); return; }
+        if (!audio.paused || loopTimer) { audio.pause(); clearTimeout(loopTimer); loopTimer = null; if (info) { delete info.dataset.wait; showFree(); } btn.innerHTML = ICON.play; btn.setAttribute("aria-label", "Tocar"); return; }
         stopAll(); current = { audio };
         if (audio.ended) { audio.currentTime = 0; el.dataset.counted = ""; }
         audio.play().then(() => { btn.innerHTML = ICON.pause; btn.setAttribute("aria-label", "Pausar"); }).catch(() => toast("Toque de novo para ouvir."));
@@ -710,7 +742,18 @@
           <ul class="acts">${list.map((a) => `<li><a href="#${e.id}-${a.id}" class="${isDone(st, a) ? "done" : ""} ${nx && nx.id === a.id ? "next" : ""}">
             <span class="mark" aria-hidden="true">${isDone(st, a) ? "✓" : ""}</span><span>${esc(a.name)}</span>${a.optional ? `<span class="opt">opcional</span>` : isDone(st, a) ? `<span class="opt">feito</span>` : ""}</a></li>`).join("")}</ul></section>`;
       }).join("")}</div>
+      ${downloadsHTML(e)}
       <p class="small muted">Não há tempo mínimo nem ordem obrigatória. A sequência sugerida é a de cima para baixo.</p>`;
+  }
+
+  function downloadsHTML(e) {
+    const m = (window.COURSE.episodes || []).find((x) => x.id === e.id);
+    if (!m || !m.downloads || !m.downloads.length) return "";
+    const mb = (b) => (b / 1048576).toFixed(1).replace(".", ",") + " MB";
+    return `<section class="part" id="mp3"><div class="part-head"><h2>Ouvir fora da aula (MP3)</h2><span class="chip">escuta livre</span></div>
+      <p class="small">Para ouvir no banho, no caminho ou no fone, com o player de música do celular. Escutas fora do site não entram na avaliação.</p>
+      <ul class="acts">${m.downloads.map((d) => `<li><a href="${esc(d.file)}" download><span class="mark" aria-hidden="true">↓</span><span>${esc(d.label)}</span><span class="opt">${fmtTime(d.duration)} · ${mb(d.size)}</span></a></li>`).join("")}</ul>
+      <p class="small muted">Os arquivos tocam sempre na velocidade original (1×). A velocidade escolhida no site não muda o MP3 baixado; ajuste no app de música, se ele permitir.</p></section>`;
   }
 
   function viewAct(e, actId) {
@@ -886,6 +929,7 @@
       case "pp": { const p = t.closest(".player"); if (p._toggle) p._toggle(); return; }
       case "rewind": { const p = t.closest(".player"); if (p._rewind) p._rewind(); return; }
       case "ver": { const p = t.closest(".player"); if (p._ver) p._ver(t.dataset.ver); return; }
+      case "loop": { const p = t.closest(".player"); if (p._loop) p._loop(); return; }
       case "answer": {
         const q = allQs(e).find((x) => x.id === t.dataset.q), i = Number(t.dataset.i);
         const a = st.answers[q.id] || (st.answers[q.id] = { first: i, at: now(), beforeTranscript: !st.transcriptRevealed,
