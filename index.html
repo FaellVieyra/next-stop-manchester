@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Next Stop: Manchester</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Percurso pessoal de inglês britânico com histórias em Londres e Manchester.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="#inicio">Next Stop: <span>Manchester</span></a>
+    <nav class="nav" aria-label="Seções">
+      <a href="#inicio" data-nav="inicio">Início</a>
+      <a href="#progresso" data-nav="progresso">Progresso</a>
+      <a href="#ajustes" data-nav="ajustes">Ajustes</a>
+      <span class="look">
+        <button type="button" data-look="smaller" aria-label="Diminuir letra">A−</button>
+        <button type="button" data-look="bigger" aria-label="Aumentar letra">A+</button>
+        <button type="button" data-look="theme" aria-label="Mudar o tema">Escuro</button>
+      </span>
+    </nav>
+  </div>
+</header>
+<main id="app" class="wrap" tabindex="-1">
+  <p class="loading">Carregando…</p>
+</main>
+<footer class="foot wrap">
+  <p>Seu progresso fica salvo só neste navegador. Exporte em <a href="#progresso">Progresso</a> para guardar uma cópia ou levar para outro aparelho.</p>
+</footer>
+<script src="content/manifest.js"></script>
+<script src="content/assessment.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
