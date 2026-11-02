@@ -719,6 +719,11 @@
           <div class="row">${nx ? `<a class="btn primary" href="#${e.id}-${nx.id}">${st ? "Continuar" : "Começar"}: ${esc(nx.name)}</a>` : ""}
           <a class="btn" href="#${e.id}">Ver todas as atividades</a></div></article>`;
       }).join("")}
+      ${GLO() ? `<article class="ep-card">
+          <div class="row"><span class="eyebrow">Glossário · arte em inglês</span><span class="chip ${gLearned() ? "info" : ""}">${gLearned()} de ${GLO().terms.length} termos</span></div>
+          <div><h2>${esc(GLO().title)}</h2><p class="pt">${esc(GLO().titlePt)}</p></div>
+          <p>Vocabulário de crítica, exposição e carreira, com áudio e uma frase sua por termo.</p>
+          <div class="row"><a class="btn" href="#glossario">Abrir o glossário</a></div></article>` : ""}
       <p class="small muted">Os próximos episódios são preparados a partir do seu progresso. Exporte em Progresso ou copie o resumo da Retomada e envie ao Claude.</p>`;
   }
 
@@ -843,6 +848,12 @@
     app.innerHTML = `<section class="hero"><span class="eyebrow">Acompanhamento</span><h1>Progresso</h1>
         <p class="lede">Quatro registros separados: o que você fez, o que entendeu, como você se avalia e o que foi revisado.</p></section>
       ${sections}
+      ${GLO() ? (() => { const g = GLO(), mine = g.terms.filter((t) => P.glossary && P.glossary[t.id] && P.glossary[t.id].mine);
+        return `<section class="stack-lg"><div class="row" style="justify-content:space-between"><h2>Glossário: ${esc(g.title)}</h2><a class="btn small" href="#glossario">Abrir</a></div>
+          <div class="panel record"><h3>Termos marcados <span class="chip">${gLearned()}/${g.terms.length}</span></h3>
+            <div class="meter" aria-hidden="true"><i style="width:${Math.round(gLearned() / g.terms.length * 100)}%"></i></div>
+            <p class="small muted">“Já sei” é a sua avaliação, não um teste.</p></div>
+          ${mine.length ? `<div class="stack"><h3>Suas frases</h3><div class="table-wrap"><table><thead><tr><th>Termo</th><th>Sua frase</th></tr></thead><tbody>${mine.map((t) => `<tr><td><b>${esc(t.en)}</b></td><td class="small">${esc(P.glossary[t.id].mine)}</td></tr>`).join("")}</tbody></table></div></div>` : ""}</section>`; })() : ""}
       <section class="stack"><h2>Avaliação inicial</h2><p class="small muted">${fmtDate(a.date)}. Registro fixo do ponto de partida.</p>
         <div class="table-wrap"><table><thead><tr><th>Habilidade</th><th>Atividade</th><th>Resultado</th><th>Observação</th></tr></thead><tbody>
         ${a.items.map((i) => `<tr><td>${esc(i.skill)}</td><td>${esc(i.activity)}</td><td>${esc(i.result)}</td><td class="small">${esc(i.note)}</td></tr>`).join("")}</tbody></table></div>
@@ -891,6 +902,73 @@
         </ul></section>`;
   }
 
+  // ---------- glossário Art Talk ----------
+  const GLO = () => window.GLOSSARY;
+  function gState(id) { P.glossary = P.glossary || {}; return P.glossary[id] || (P.glossary[id] = {}); }
+  function gLearned() { const g = GLO(); return g ? g.terms.filter((t) => P.glossary && P.glossary[t.id] && P.glossary[t.id].learned).length : 0; }
+  let gFilter = "all";
+  function viewGlossary() {
+    setNav("glossario");
+    const g = GLO();
+    if (!g) { app.innerHTML = `<p class="note warn">O glossário não carregou. Recarregue a página.</p>`; return; }
+    const cats = g.categories;
+    const list = g.terms.filter((t) => gFilter === "all" || t.cat === gFilter);
+    const next = g.terms.find((t) => !(P.glossary && P.glossary[t.id] && P.glossary[t.id].learned));
+    const n = gLearned();
+    app.innerHTML = `<section class="hero"><span class="eyebrow">Glossário · arte em inglês</span>
+        <h1>${esc(g.title)}</h1>
+        <p class="lede">${esc(g.about)} Um termo por tela: ouça, entenda e use numa frase sua.</p></section>
+      <div class="row">${next ? `<a class="btn primary" href="#glossario-${next.id}">${n ? "Continuar" : "Começar"}: ${esc(next.en)}</a>` : `<span class="chip ok">Todos os termos marcados</span>`}
+        <span class="chip ${n === g.terms.length ? "ok" : "info"}">${n} de ${g.terms.length} marcados como “já sei”</span></div>
+      <div class="seg" role="group" aria-label="Categoria">
+        <button data-action="gfilter" data-v="all" aria-pressed="${gFilter === "all"}">Todos</button>
+        ${cats.map((c) => `<button data-action="gfilter" data-v="${c.id}" aria-pressed="${gFilter === c.id}">${esc(c.name)}</button>`).join("")}</div>
+      ${cats.filter((c) => gFilter === "all" || c.id === gFilter).map((c) => `<section class="part"><div class="part-head"><h2>${esc(c.name)}</h2></div>
+        <ul class="acts">${list.filter((t) => t.cat === c.id).map((t) => { const s = (P.glossary || {})[t.id] || {};
+          return `<li><a href="#glossario-${t.id}" class="${s.learned ? "done" : ""} ${next && next.id === t.id ? "next" : ""}"><span class="mark" aria-hidden="true">${s.learned ? "✓" : ""}</span><span><b>${esc(t.en)}</b> <span class="muted">· ${esc(t.pt)}</span></span>${s.mine ? `<span class="opt">frase sua</span>` : ""}</a></li>`; }).join("")}</ul></section>`).join("")}
+      <p class="small muted">Novos termos entram a partir das suas leituras. Mande ao Claude as palavras que travaram você numa crítica.</p>`;
+  }
+  function viewTerm(id) {
+    setNav("glossario");
+    const g = GLO();
+    if (!g) { viewGlossary(); return; }
+    const i = g.terms.findIndex((t) => t.id === id);
+    if (i < 0) { viewGlossary(); return; }
+    const t = g.terms[i], s = gState(t.id), cat = g.categories.find((c) => c.id === t.cat);
+    const prev = g.terms[i - 1], nx = g.terms[i + 1];
+    const tr = P.settings.translations;
+    app.innerHTML = `<article class="act">
+      <header class="act-head">
+        <span class="eyebrow">Art Talk · ${esc(cat ? cat.name : "")} · ${i + 1} de ${g.terms.length}</span>
+        <h1>${esc(t.en)}</h1>
+        <p class="guide">${esc(t.pt)}</p>
+      </header>
+      <div class="act-body">
+        <section class="panel"><h2>Ouvir</h2>
+          <p class="small muted">Sílaba forte marcada: <span class="phrase" style="font-size:1.2rem">${stressMark(t.stress)}</span></p>
+          <div class="row"><button class="btn primary" data-action="gplay" data-src="${esc(g.base + t.audio.word.src)}">${ICON.play} Ouvir a palavra</button>
+            <button class="btn" data-action="gplay" data-src="${esc(g.base + t.audio.example.src)}">${ICON.play} Ouvir a frase</button>
+            ${rateSelect("rate-act")}</div>
+          <p class="phrase">${esc(t.example)}</p>
+          <p class="phrase-pt" data-role="gpt" ${tr ? "" : "hidden"}>${esc(t.examplePt)}</p>
+          <div class="row"><button class="btn small ghost" data-action="gpt">${tr ? "Esconder tradução" : "Ver tradução"}</button></div>
+          <p class="note small">${esc(t.note)}</p></section>
+        <section class="panel"><h2>Use você</h2>
+          <p>${esc(t.prompt)}</p>
+          <p class="starter">${esc(t.starter)}</p>
+          <label class="small" for="gm-${t.id}">Sua frase (fica salva neste navegador)</label>
+          <textarea id="gm-${t.id}" data-action="gmine" data-id="${t.id}" placeholder="${esc(t.starter)}">${esc(s.mine || "")}</textarea>
+          <p class="small muted">Quer revisão? Copie a frase e mande ao Claude.</p>
+          ${recBox("g-" + t.id)}</section>
+      </div>
+      <footer class="act-foot">
+        <div class="row">${prev ? `<a class="btn ghost small" href="#glossario-${prev.id}">← ${esc(prev.en)}</a>` : ""}
+          <a class="btn ghost small" href="#glossario" data-action="stop">Lista de termos</a></div>
+        <div class="right"><button class="btn ${s.learned ? "" : "ghost"}" data-action="glearned" data-id="${t.id}" aria-pressed="${!!s.learned}">${s.learned ? "✓ Já sei" : "Marcar “já sei”"}</button>
+          ${nx ? `<a class="btn primary" href="#glossario-${nx.id}">Próximo termo →</a>` : `<a class="btn primary" href="#glossario">Ver a lista →</a>`}</div>
+      </footer></article>`;
+  }
+
   // ---------- roteamento ----------
   function parseHash() {
     const h = (location.hash || "#inicio").slice(1);
@@ -902,6 +980,8 @@
     const r = parseHash();
     if (r.page === "progresso") viewProgress();
     else if (r.page === "ajustes") viewSettings();
+    else if (r.page === "glossario") viewGlossary();
+    else if (r.page && r.page.startsWith("glossario-")) viewTerm(r.page.slice(10));
     else if (r.ep && EPISODES()[r.ep]) { if (r.act) viewAct(EPISODES()[r.ep], r.act); else viewOverview(EPISODES()[r.ep]); }
     else viewHome();
     window.scrollTo(0, 0);
@@ -926,6 +1006,10 @@
         location.hash = e.id + "-" + next.id; return;
       }
       case "stop": stopAll(); return;
+      case "gplay": playClip(t.dataset.src); return;
+      case "gpt": { const el = app.querySelector('[data-role="gpt"]'); el.hidden = !el.hidden; t.textContent = el.hidden ? "Ver tradução" : "Esconder tradução"; return; }
+      case "gfilter": gFilter = t.dataset.v; viewGlossary(); return;
+      case "glearned": { const s = gState(t.dataset.id); s.learned = s.learned ? null : now(); save(); const y = window.scrollY; viewTerm(t.dataset.id); window.scrollTo(0, y); return; }
       case "pp": { const p = t.closest(".player"); if (p._toggle) p._toggle(); return; }
       case "rewind": { const p = t.closest(".player"); if (p._rewind) p._rewind(); return; }
       case "ver": { const p = t.closest(".player"); if (p._ver) p._ver(t.dataset.ver); return; }
@@ -1098,6 +1182,7 @@
     const t = ev.target, e = currentEp();
     const later = () => { clearTimeout(saveTimer); saveTimer = setTimeout(save, 400); };
     if (t.dataset.action === "answertext" && e) { const st = epState(e.id); (st.productions[t.dataset.p] || (st.productions[t.dataset.p] = {})).draft = t.value; later(); }
+    else if (t.dataset.action === "gmine") { gState(t.dataset.id).mine = t.value; later(); }
     else if (t.dataset.action === "reflection" && e) { epState(e.id).reflection = t.value; later(); }
     else if (t.dataset.action === "revnote") { const pr = epState(t.dataset.ep).productions[t.dataset.p]; pr.review = pr.review || { status: "pendente" }; pr.review.note = t.value; later(); }
   });
@@ -1151,6 +1236,7 @@
   function loadScripts() {
     const list = ((window.COURSE && window.COURSE.episodes) || []).map((m) => m.file);
     if (!window.ILLUSTRATIONS) list.push("assets/illustrations.js");
+    if (!window.GLOSSARY) list.push("content/glossary/glossary.js");
     return Promise.all(list.map((src) => new Promise((res) => {
       const s = document.createElement("script"); s.src = src; s.onload = res; s.onerror = res; document.body.appendChild(s);
     })));

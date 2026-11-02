@@ -10,11 +10,16 @@ styles.css            visual (tema claro e escuro)
 app.js                lógica: episódios, atividades, progresso
 content/manifest.js   lista de episódios
 content/assessment.js registro da avaliação inicial
+content/glossary/
+  source.json         termos do glossário Art Talk (editável)
+  glossary.js         gerado a partir do source.json (não editar)
+  audio/*.mp3         palavra e frase de cada termo
 content/epNN/
   source.json         texto do episódio (editável)
   episode.js          gerado a partir do source.json (não editar)
   audio/*.mp3         áudios gerados
 tools/build_episode.py  gera áudios e episode.js
+tools/build_glossary.py gera áudios e glossary.js do glossário
 tools/make_preview.py   gera a prévia para o claude.ai
 ```
 
@@ -25,6 +30,10 @@ tools/make_preview.py   gera a prévia para o claude.ai
    - Requer `pip install kokoro-onnx soundfile` e `ffmpeg`.
    - Os modelos (`kokoro-v1.0.onnx`, `voices-v1.0.bin`) vêm de https://github.com/thewh1teagle/kokoro-onnx/releases/tag/model-files-v1.0 e não ficam no repositório.
 3. Acrescente o episódio em `content/manifest.js`.
+
+## Glossário Art Talk
+
+Vocabulário do meio artístico (crítica, exposição, carreira), um termo por tela, com áudio e uma frase sua. Para incluir termos, edite `content/glossary/source.json` e rode `python3 tools/build_glossary.py <pasta-dos-modelos>`. Só os termos novos ou alterados ganham áudio novo.
 
 ## Privacidade e dados
 

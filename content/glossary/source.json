@@ -1,0 +1,142 @@
+{
+  "title": "Art Talk",
+  "titlePt": "Glossário da arte",
+  "about": "Palavras que aparecem em quase toda crítica e resenha de arte em inglês, como as da ArtReview. Frases simples, voz britânica.",
+  "voice": "bm_lewis",
+  "categories": [
+    { "id": "obra", "name": "Obra e técnica" },
+    { "id": "expo", "name": "Exposição" },
+    { "id": "critica", "name": "Crítica" },
+    { "id": "carreira", "name": "Carreira" }
+  ],
+  "terms": [
+    {
+      "id": "g01", "cat": "obra", "en": "artwork", "stress": "ART-work",
+      "pt": "obra de arte",
+      "example": "This artwork is about the sertão.",
+      "examplePt": "Esta obra é sobre o sertão.",
+      "note": "No meio da arte se diz an artwork (an antes de vogal). Na fala do dia a dia, a piece soa mais natural.",
+      "prompt": "Fale ou escreva sobre uma obra sua.", "starter": "My favourite artwork is…"
+    },
+    {
+      "id": "g02", "cat": "obra", "en": "piece", "stress": "PIECE",
+      "pt": "obra, trabalho (uma peça)",
+      "example": "This piece is made of clay.",
+      "examplePt": "Este trabalho é feito de barro.",
+      "note": "Jeito mais natural de dizer \"um trabalho\": a piece, my new piece.",
+      "prompt": "Diga de que é feito um trabalho seu.", "starter": "My new piece is made of…"
+    },
+    {
+      "id": "g03", "cat": "obra", "en": "medium", "stress": "ME-dium",
+      "pt": "meio, técnica (pintura, gravura, vídeo…)",
+      "example": "My main medium is painting.",
+      "examplePt": "Minha técnica principal é a pintura.",
+      "note": "O plural na arte é media: mixed media = técnica mista.",
+      "prompt": "Diga qual é a sua técnica principal.", "starter": "My main medium is…"
+    },
+    {
+      "id": "g04", "cat": "obra", "en": "installation", "stress": "in-sta-LA-tion",
+      "pt": "instalação",
+      "example": "The installation fills the whole room.",
+      "examplePt": "A instalação ocupa a sala inteira.",
+      "note": "Quase igual ao português; atenção à sílaba forte: LA.",
+      "prompt": "Descreva uma instalação que você viu ou gostaria de fazer.", "starter": "The installation was…"
+    },
+    {
+      "id": "g05", "cat": "expo", "en": "exhibition", "stress": "ex-hi-BI-tion",
+      "pt": "exposição",
+      "example": "The exhibition opens on Friday.",
+      "examplePt": "A exposição abre na sexta.",
+      "note": "Falso amigo: exposure não é exposição de arte. O h é mudo: \"ek-si-BI-shun\".",
+      "prompt": "Fale de uma exposição que você visitou.", "starter": "I went to an exhibition about…"
+    },
+    {
+      "id": "g06", "cat": "expo", "en": "show", "stress": "SHOW",
+      "pt": "mostra, exposição (informal)",
+      "example": "Her new show is at a gallery in Manchester.",
+      "examplePt": "A nova mostra dela está numa galeria em Manchester.",
+      "note": "No meio artístico, show é exposição, não espetáculo. Solo show = individual; group show = coletiva.",
+      "prompt": "Diga se você já participou de uma mostra.", "starter": "I was in a group show in…"
+    },
+    {
+      "id": "g07", "cat": "expo", "en": "private view", "stress": "PRI-vate VIEW",
+      "pt": "abertura, vernissage",
+      "example": "The private view starts at six.",
+      "examplePt": "A abertura começa às seis.",
+      "note": "Bem britânico. Apesar do nome, costuma ser aberta ao público. Nos EUA dizem opening.",
+      "prompt": "Convide alguém para a abertura de uma exposição sua.", "starter": "Come to the private view on…"
+    },
+    {
+      "id": "g08", "cat": "expo", "en": "curator", "stress": "cu-RA-tor",
+      "pt": "curador, curadora",
+      "example": "The curator chose ten artists.",
+      "examplePt": "A curadora escolheu dez artistas.",
+      "note": "Serve para homem e mulher. O verbo é to curate.",
+      "prompt": "Diga o que um curador fez numa exposição.", "starter": "The curator chose…"
+    },
+    {
+      "id": "g09", "cat": "critica", "en": "review", "stress": "re-VIEW",
+      "pt": "resenha, crítica (o texto)",
+      "example": "I read a review of the show.",
+      "examplePt": "Li uma crítica da mostra.",
+      "note": "O texto é a review; quem escreve é o critic.",
+      "prompt": "Diga o que achou de uma crítica ou de uma exposição.", "starter": "The review says…"
+    },
+    {
+      "id": "g10", "cat": "critica", "en": "critic", "stress": "CRI-tic",
+      "pt": "crítico, crítica (a pessoa)",
+      "example": "The critic liked the colours.",
+      "examplePt": "O crítico gostou das cores.",
+      "note": "Critic é a pessoa. Crítica como texto é review; como área é criticism.",
+      "prompt": "Diga o que um crítico achou de uma obra.", "starter": "The critic liked…"
+    },
+    {
+      "id": "g11", "cat": "critica", "en": "depict", "stress": "de-PICT",
+      "pt": "retratar, representar",
+      "example": "The painting depicts a family in the kitchen.",
+      "examplePt": "A pintura retrata uma família na cozinha.",
+      "note": "Verbo muito comum em crítica. Com he, she ou it, leva s: it depicts.",
+      "prompt": "Diga o que uma obra sua retrata.", "starter": "My painting depicts…"
+    },
+    {
+      "id": "g12", "cat": "critica", "en": "body of work", "stress": "BO-dy of WORK",
+      "pt": "conjunto da obra, produção",
+      "example": "Her body of work is about memory.",
+      "examplePt": "A produção dela é sobre memória.",
+      "note": "Todo o trabalho de um artista ao longo do tempo. Aparece muito em editais.",
+      "prompt": "Diga sobre o que é a sua produção.", "starter": "My body of work is about…"
+    },
+    {
+      "id": "g13", "cat": "carreira", "en": "artist statement", "stress": "AR-tist STATE-ment",
+      "pt": "texto de apresentação do artista",
+      "example": "I'm writing my artist statement in English.",
+      "examplePt": "Estou escrevendo meu texto de artista em inglês.",
+      "note": "Curto, em primeira pessoa: o que você faz e por quê. Pedido em quase todo edital.",
+      "prompt": "Escreva a primeira frase do seu statement.", "starter": "I'm a visual artist from Bahia. My work…"
+    },
+    {
+      "id": "g14", "cat": "carreira", "en": "portfolio", "stress": "port-FO-li-o",
+      "pt": "portfólio",
+      "example": "I have a new portfolio online.",
+      "examplePt": "Tenho um portfólio novo on-line.",
+      "note": "Quase igual ao português; a sílaba forte é FO.",
+      "prompt": "Diga o que há no seu portfólio.", "starter": "My portfolio has…"
+    },
+    {
+      "id": "g15", "cat": "carreira", "en": "residency", "stress": "RE-si-den-cy",
+      "pt": "residência artística",
+      "example": "She got a residency in Manchester.",
+      "examplePt": "Ela conseguiu uma residência em Manchester.",
+      "note": "Também artist residency. Got = conseguiu.",
+      "prompt": "Diga onde você gostaria de fazer uma residência.", "starter": "I'd like a residency in…"
+    },
+    {
+      "id": "g16", "cat": "carreira", "en": "open call", "stress": "O-pen CALL",
+      "pt": "edital, chamada aberta",
+      "example": "The gallery has an open call for young artists.",
+      "examplePt": "A galeria tem um edital para artistas jovens.",
+      "note": "Use an antes de open (som de vogal): an open call. O prazo é a deadline.",
+      "prompt": "Diga que você vai se inscrever num edital.", "starter": "I'm going to apply for an open call in…"
+    }
+  ]
+}
