@@ -5,7 +5,7 @@
 - Geradas com **kokoro-onnx** (https://github.com/thewh1teagle/kokoro-onnx), licença MIT.
 
 ## Imagens
-- Ilustrações (cozinha, Sam, Davi): originais, feitas para este projeto.
+- Ilustrações (cozinha, Sam, Davi, pôster de abertura, galeria do Art Talk): originais, feitas para este projeto.
 - Foto "Heathrow Terminal 2 & 3 Underground Station", N Chadwick, 23/11/2019, Geograph — CC BY-SA 2.0. https://www.geograph.org.uk/photo/6590812
 - Foto "Ticket barriers, Marylebone Underground station", Robin Stott, 27/05/2013, Geograph — CC BY-SA 2.0. https://www.geograph.org.uk/photo/3940789
 - Licença CC BY-SA 2.0: https://creativecommons.org/licenses/by-sa/2.0/

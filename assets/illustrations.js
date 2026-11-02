@@ -43,5 +43,76 @@ window.ILLUSTRATIONS = {
   <path d="M494 202 L462 238 L430 236" fill="none" stroke="var(--davi-top)" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>`,
   sam: `<svg viewBox="0 0 72 72" aria-hidden="true"><circle cx="36" cy="36" r="36" fill="var(--ill-sky)"/><rect x="14" y="50" width="44" height="30" rx="16" fill="var(--sam-top)"/><rect x="31" y="40" width="10" height="14" fill="var(--skin-a)"/><circle cx="36" cy="30" r="14" fill="var(--skin-a)"/><path d="M21 33 C19 12 54 11 51 31 C46 22 28 21 21 33 Z" fill="var(--hair-a)"/><circle cx="49" cy="18" r="6" fill="var(--hair-a)"/></svg>`,
-  davi: `<svg viewBox="0 0 72 72" aria-hidden="true"><circle cx="36" cy="36" r="36" fill="var(--ill-sky)"/><rect x="14" y="50" width="44" height="30" rx="16" fill="var(--davi-top)"/><rect x="31" y="40" width="10" height="14" fill="var(--skin-b)"/><circle cx="36" cy="30" r="14" fill="var(--skin-b)"/><g fill="var(--hair-b)"><circle cx="25" cy="23" r="5"/><circle cx="31" cy="18" r="6"/><circle cx="38" cy="16" r="6"/><circle cx="45" cy="19" r="6"/><circle cx="49" cy="25" r="4.5"/></g></svg>`
+  davi: `<svg viewBox="0 0 72 72" aria-hidden="true"><circle cx="36" cy="36" r="36" fill="var(--ill-sky)"/><rect x="14" y="50" width="44" height="30" rx="16" fill="var(--davi-top)"/><rect x="31" y="40" width="10" height="14" fill="var(--skin-b)"/><circle cx="36" cy="30" r="14" fill="var(--skin-b)"/><g fill="var(--hair-b)"><circle cx="25" cy="23" r="5"/><circle cx="31" cy="18" r="6"/><circle cx="38" cy="16" r="6"/><circle cx="45" cy="19" r="6"/><circle cx="49" cy="25" r="4.5"/></g></svg>`,
+  poster: `<svg viewBox="0 0 800 420" role="img" aria-labelledby="ill-p-t">
+  <title id="ill-p-t">Cartaz da viagem: à esquerda, o sertão em barro com um mandacaru feito de blocos, que se desfazem em pixels; no centro, Londres com a torre do relógio e uma cúpula; à direita, Manchester com casas de tijolo e a chaminé de uma antiga fábrica. Um trem atravessa tudo da esquerda para a direita.</title>
+  <rect width="800" height="420" fill="var(--pst-sky)"/>
+  <rect y="250" width="800" height="90" fill="var(--pst-sky2)"/>
+  <circle cx="236" cy="92" r="46" fill="var(--pst-sun)"/>
+  <!-- sertão -->
+  <path d="M0 262 H40 V250 H92 V240 H150 V252 H196 V264 H240 V276 H290 V340 H0 Z" fill="var(--pst-clay)"/>
+  <g fill="var(--pst-cactus)"><rect x="92" y="104" width="24" height="150"/><rect x="58" y="170" width="34" height="16"/><rect x="58" y="122" width="16" height="64"/><rect x="116" y="152" width="30" height="16"/><rect x="130" y="90" width="16" height="78"/></g>
+  <g fill="var(--pst-clay)"><rect x="150" y="238" width="14" height="14" opacity="1"/><rect x="176" y="214" width="12" height="12" opacity="0.9"/><rect x="204" y="196" width="10" height="10" opacity="0.8"/><rect x="230" y="184" width="10" height="10" opacity="0.7"/><rect x="258" y="176" width="8" height="8" opacity="0.6"/><rect x="284" y="172" width="8" height="8" opacity="0.5"/><rect x="310" y="170" width="6" height="6" opacity="0.4"/><rect x="166" y="190" width="8" height="8" opacity="0.6"/><rect x="198" y="168" width="6" height="6" opacity="0.5"/></g>
+  <!-- Londres -->
+  <g fill="var(--pst-city)">
+    <rect x="300" y="236" width="44" height="104"/>
+    <rect x="352" y="146" width="26" height="194"/><path d="M350 146 L365 108 L380 146 Z"/>
+    <rect x="386" y="214" width="40" height="126"/>
+    <path d="M432 340 V228 a42 42 0 0 1 84 0 V340 Z"/><rect x="470" y="168" width="8" height="20"/>
+    <rect x="522" y="248" width="34" height="92"/>
+  </g>
+  <circle cx="365" cy="170" r="8" fill="var(--pst-window)"/>
+  <!-- Manchester -->
+  <g fill="var(--pst-brick)">
+    <rect x="574" y="232" width="96" height="108"/>
+    <rect x="690" y="120" width="18" height="220"/>
+    <path d="M676 340 V262 L700 244 L724 262 L748 244 L772 262 L800 244 V340 Z"/>
+  </g>
+  <rect x="686" y="120" width="26" height="8" fill="var(--pst-brick-dark)"/>
+  <g fill="var(--pst-window)">
+    <rect x="584" y="246" width="12" height="16"/><rect x="606" y="246" width="12" height="16"/><rect x="628" y="246" width="12" height="16"/><rect x="650" y="246" width="12" height="16"/>
+    <rect x="584" y="276" width="12" height="16"/><rect x="606" y="276" width="12" height="16"/><rect x="628" y="276" width="12" height="16"/><rect x="650" y="276" width="12" height="16"/>
+    <rect x="692" y="284" width="10" height="14"/><rect x="740" y="282" width="10" height="14"/><rect x="782" y="282" width="10" height="14"/>
+  </g>
+  <!-- placa -->
+  <rect x="592" y="176" width="2" height="56" fill="var(--pst-sign)"/>
+  <rect x="520" y="150" width="150" height="34" rx="3" fill="var(--pst-sign)"/>
+  <text x="595" y="173" text-anchor="middle" font-family="Bricolage Grotesque, Segoe UI, sans-serif" font-weight="700" font-size="16" letter-spacing="2" fill="var(--pst-sign-ink)">MANCHESTER</text>
+  <!-- trilho e trem -->
+  <rect y="340" width="800" height="110" fill="var(--pst-ground)"/>
+  <rect y="352" width="800" height="4" fill="var(--pst-rail)"/>
+  <g fill="var(--pst-rail)" opacity="0.55"><rect x="6" y="358" width="18" height="5"/><rect x="38" y="358" width="18" height="5"/><rect x="70" y="358" width="18" height="5"/><rect x="102" y="358" width="18" height="5"/><rect x="134" y="358" width="18" height="5"/><rect x="166" y="358" width="18" height="5"/><rect x="198" y="358" width="18" height="5"/><rect x="230" y="358" width="18" height="5"/><rect x="262" y="358" width="18" height="5"/><rect x="294" y="358" width="18" height="5"/><rect x="326" y="358" width="18" height="5"/><rect x="358" y="358" width="18" height="5"/><rect x="390" y="358" width="18" height="5"/><rect x="422" y="358" width="18" height="5"/><rect x="454" y="358" width="18" height="5"/><rect x="486" y="358" width="18" height="5"/><rect x="518" y="358" width="18" height="5"/><rect x="550" y="358" width="18" height="5"/><rect x="582" y="358" width="18" height="5"/><rect x="614" y="358" width="18" height="5"/><rect x="646" y="358" width="18" height="5"/><rect x="678" y="358" width="18" height="5"/><rect x="710" y="358" width="18" height="5"/><rect x="742" y="358" width="18" height="5"/><rect x="774" y="358" width="18" height="5"/></g>
+  <g>
+    <rect x="236" y="300" width="300" height="48" rx="8" fill="var(--pst-train)"/>
+    <path d="M536 300 H556 a22 22 0 0 1 22 22 V348 H536 Z" fill="var(--pst-train-nose)"/>
+    <g fill="var(--pst-window)"><rect x="252" y="310" width="34" height="16" rx="2"/><rect x="298" y="310" width="34" height="16" rx="2"/><rect x="344" y="310" width="34" height="16" rx="2"/><rect x="390" y="310" width="34" height="16" rx="2"/><rect x="436" y="310" width="34" height="16" rx="2"/><rect x="482" y="310" width="34" height="16" rx="2"/><rect x="546" y="310" width="22" height="16" rx="3"/></g>
+    <rect x="236" y="334" width="342" height="5" fill="var(--pst-train-stripe)"/>
+    <g fill="var(--pst-rail)"><circle cx="270" cy="350" r="6"/><circle cx="330" cy="350" r="6"/><circle cx="460" cy="350" r="6"/><circle cx="530" cy="350" r="6"/></g>
+  </g>
+  <text x="40" y="398" font-family="Bricolage Grotesque, Segoe UI, sans-serif" font-weight="700" font-size="22" fill="var(--pst-ground-ink)">Cotegipe → London → Manchester</text>
+</svg>`,
+  gallery: `<svg viewBox="0 0 640 240" role="img" aria-labelledby="ill-g-t">
+  <title id="ill-g-t">Parede de galeria com três obras: um mandacaru em blocos cor de barro, uma composição de círculos e uma paisagem de faixas. Um banco à frente e uma pequena placa de legenda.</title>
+  <rect width="640" height="240" fill="var(--ill-wall)"/>
+  <rect y="204" width="640" height="36" fill="var(--ill-floor)"/>
+  <rect y="200" width="640" height="4" fill="var(--ill-countertop)"/>
+  <!-- obra 1 -->
+  <rect x="58" y="40" width="130" height="120" fill="var(--ill-line)"/>
+  <rect x="64" y="46" width="118" height="108" fill="var(--pst-sky)"/>
+  <rect x="64" y="128" width="118" height="26" fill="var(--pst-clay)"/>
+  <g fill="var(--pst-cactus)"><rect x="118" y="62" width="12" height="75"/><rect x="101" y="95" width="17" height="8"/><rect x="101" y="71" width="8" height="32"/><rect x="130" y="86" width="15" height="8"/><rect x="137" y="55" width="8" height="39"/></g>
+  <!-- obra 2 -->
+  <rect x="252" y="28" width="136" height="148" fill="var(--ill-line)"/>
+  <rect x="258" y="34" width="124" height="136" fill="var(--ill-mug)"/>
+  <circle cx="300" cy="84" r="30" fill="var(--pst-sun)"/><circle cx="342" cy="124" r="22" fill="var(--pst-brick)"/><circle cx="292" cy="140" r="12" fill="var(--pst-sign)"/>
+  <!-- obra 3 -->
+  <rect x="452" y="52" width="130" height="96" fill="var(--ill-line)"/>
+  <rect x="458" y="58" width="118" height="84" fill="var(--pst-sky2)"/>
+  <rect x="458" y="100" width="118" height="14" fill="var(--pst-city)"/><rect x="458" y="114" width="118" height="28" fill="var(--pst-brick)"/>
+  <!-- legenda e banco -->
+  <rect x="396" y="112" width="34" height="22" rx="2" fill="var(--ill-mug)" stroke="var(--ill-line)" stroke-width="1.5"/>
+  <rect x="402" y="119" width="20" height="2.5" fill="var(--ill-line)"/><rect x="402" y="125" width="14" height="2.5" fill="var(--ill-line)"/>
+  <rect x="236" y="178" width="168" height="12" rx="3" fill="var(--ill-wood)"/>
+  <rect x="250" y="190" width="8" height="18" fill="var(--ill-line)"/><rect x="382" y="190" width="8" height="18" fill="var(--ill-line)"/>
+</svg>`
 };

@@ -700,10 +700,13 @@
   }
   let flash = "";
 
+  // Capa de cada episódio no cartão da página inicial (chave em ILLUSTRATIONS).
+  const COVERS = { ep01: "kitchen" };
   function viewHome() {
     setNav("inicio");
     const list = (window.COURSE.episodes || []).map((m) => EPISODES()[m.id]).filter(Boolean);
-    app.innerHTML = `<section class="hero"><span class="eyebrow">Inglês britânico · Londres → Manchester</span>
+    app.innerHTML = `${ILL().poster ? `<figure class="poster">${ILL().poster}</figure>` : ""}
+      <section class="hero"><span class="eyebrow">Inglês britânico · Londres → Manchester</span>
         <h1>Next Stop: Manchester</h1>
         <p class="lede">Uma história contínua para treinar escuta e fala. Cada episódio é dividido em atividades curtas: faça uma, pare quando quiser e continue depois do mesmo ponto.</p></section>
       ${!storageOk ? `<p class="note warn">Este navegador não está deixando salvar o progresso. Exporte em Progresso antes de sair.</p>` : ""}
@@ -711,7 +714,8 @@
         const st = P.episodes[e.id] ? epState(e.id) : null;
         const r = st ? records(e, st) : null;
         const nx = st ? nextAct(e, st) : actsOf(e)[0];
-        return `<article class="ep-card">
+        const cov = (ILL()[COVERS[e.id]] || "").replace("<svg", '<svg preserveAspectRatio="xMidYMid slice" style="aspect-ratio: 2 / 1"');
+        return `<article class="ep-card">${cov ? `<div class="cover">${cov}</div>` : ""}
           <div class="row"><span class="eyebrow">Episódio ${e.number} · ${esc(e.arc)}</span>
           ${st ? `<span class="chip ${st.completedAt ? "ok" : "info"}">${r.actsDone} de ${r.actsTotal} atividades</span>` : `<span class="chip">Não iniciado</span>`}</div>
           <div><h2>${esc(e.title)}</h2><p class="pt">${esc(e.titlePt)}</p></div>
@@ -719,7 +723,7 @@
           <div class="row">${nx ? `<a class="btn primary" href="#${e.id}-${nx.id}">${st ? "Continuar" : "Começar"}: ${esc(nx.name)}</a>` : ""}
           <a class="btn" href="#${e.id}">Ver todas as atividades</a></div></article>`;
       }).join("")}
-      ${GLO() ? `<article class="ep-card">
+      ${GLO() ? `<article class="ep-card">${ILL().gallery ? `<div class="cover">${ILL().gallery}</div>` : ""}
           <div class="row"><span class="eyebrow">Glossário · arte em inglês</span><span class="chip ${gLearned() ? "info" : ""}">${gLearned()} de ${GLO().terms.length} termos</span></div>
           <div><h2>${esc(GLO().title)}</h2><p class="pt">${esc(GLO().titlePt)}</p></div>
           <p>Vocabulário de crítica, exposição e carreira, com áudio e uma frase sua por termo.</p>
@@ -915,7 +919,8 @@
     const list = g.terms.filter((t) => gFilter === "all" || t.cat === gFilter);
     const next = g.terms.find((t) => !(P.glossary && P.glossary[t.id] && P.glossary[t.id].learned));
     const n = gLearned();
-    app.innerHTML = `<section class="hero"><span class="eyebrow">Glossário · arte em inglês</span>
+    app.innerHTML = `${ILL().gallery ? `<figure class="poster">${ILL().gallery}</figure>` : ""}
+      <section class="hero"><span class="eyebrow">Glossário · arte em inglês</span>
         <h1>${esc(g.title)}</h1>
         <p class="lede">${esc(g.about)} Um termo por tela: ouça, entenda e use numa frase sua.</p></section>
       <div class="row">${next ? `<a class="btn primary" href="#glossario-${next.id}">${n ? "Continuar" : "Começar"}: ${esc(next.en)}</a>` : `<span class="chip ok">Todos os termos marcados</span>`}

@@ -21,6 +21,11 @@
   --ill-mug: #ffffff; --ill-line: #4b5568; --skin-a: #e6b896; --skin-b: #9c6a49;
   --hair-a: #3b2a20; --hair-b: #1d1916; --sam-top: #4767a8; --davi-top: #6f8253;
   --ill-trousers: #2f3747; --ill-trousers2: #4a505d;
+  /* pôster de abertura: barro (sertão), tijolo (Manchester) */
+  --pst-sky: #dce6f4; --pst-sky2: #c9d7ec; --pst-sun: #f1b44c; --pst-clay: #c8643b; --pst-cactus: #4f7a52;
+  --pst-city: #8796b0; --pst-brick: #a4483a; --pst-brick-dark: #7d3329; --pst-window: #fff6dc;
+  --pst-sign: #22346a; --pst-sign-ink: #ffffff; --pst-ground: #2a3550; --pst-ground-ink: #f3f5f8; --pst-rail: #1a2236;
+  --pst-train: #e9edf3; --pst-train-nose: #f1b44c; --pst-train-stripe: #2f58a6;
   --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
   --body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
@@ -35,6 +40,10 @@
   --ill-counter: #2f3745; --ill-countertop: #3f4959; --ill-wood: #86694f; --ill-floor: #1f252f;
   --ill-mug: #dfe4ec; --ill-line: #c4ccd8; --sam-top: #6f8fd0; --davi-top: #8ea36f;
   --ill-trousers: #10141b; --ill-trousers2: #2b303b;
+  --pst-sky: #1b2440; --pst-sky2: #222d4d; --pst-sun: #e8dcb0; --pst-clay: #9a4d2f; --pst-cactus: #6b9a6e;
+  --pst-city: #3b4866; --pst-brick: #7a3a30; --pst-brick-dark: #5a2a23; --pst-window: #f2c86a;
+  --pst-sign: #9db4ec; --pst-sign-ink: #14181f; --pst-ground: #0f131b; --pst-ground-ink: #e8ebf1; --pst-rail: #05070b;
+  --pst-train: #cfd6e2; --pst-train-nose: #e0a640; --pst-train-stripe: #9db4ec;
   color-scheme: dark;
 }
 :root[data-size="1"] { font-size: 112.5%; }
@@ -277,3 +286,9 @@ textarea { width: 100%; min-height: 100px; border: 1px solid var(--line); border
 @media (max-width: 480px) { .dline { grid-template-columns: 1fr; } }
 .loop-row { border-top: 1px dashed var(--line); padding-top: 10px; }
 #mp3 .acts .mark { color: var(--accent); border-color: var(--accent); }
+
+/* pôster e capas */
+.poster { margin: 0; }
+.poster svg { width: 100%; height: auto; display: block; border-radius: var(--r); }
+.ep-card .cover svg { width: 100%; height: auto; display: block; border-radius: 10px; background: var(--ill-wall); }
+.ep-card .cover { margin: -8px -8px 0; }
