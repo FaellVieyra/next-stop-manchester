@@ -179,6 +179,40 @@
   // Bloco único de controles para atividades sem o diálogo completo: botões de ouvir + velocidade.
   const audioBox = (buttons, note) => `<div class="player audio-box">${buttons ? `<div class="row">${buttons}</div>` : ""}
       ${note ? `<p class="small muted">${note}</p>` : ""}<div class="row">${rateSelect("rate-act")}</div></div>`;
+  // Leitor em português dos textos de apoio (descansar a vista). Usa a velocidade escolhida.
+  const NARR = (e) => ((window.NARRATION || {})[e.id]) || {};
+  function narrBox(e, key, note) {
+    const n = NARR(e)[key];
+    if (!n) return note ? audioBox("", note) : "";
+    return `<div class="player narr" data-narr="${key}">
+      <div class="player-row">
+        <button class="play-big" data-action="narrpp" aria-label="Ouvir este texto">${ICON.play}</button>
+        <div class="bar"><input type="range" min="0" max="1000" value="0" aria-label="Posição da leitura" data-role="nseek">
+          <div class="row" style="justify-content:space-between"><span class="small"><b>Ouvir este texto</b></span><span class="time" data-role="ntime">0:00 / ${fmtTime(n.duration)}</span></div></div>
+      </div>
+      <div class="row"><button class="btn small ghost" data-action="narrback" aria-label="Voltar 10 segundos">${ICON.back} 10 s</button>${rateSelect("rate-act")}</div>
+      <p class="small muted">Leitura em português; as frases em inglês saem na voz britânica.${note ? " " + note : ""}</p>
+    </div>`;
+  }
+  function mountNarr(root, e) {
+    root.querySelectorAll(".player.narr").forEach((el) => {
+      const n = NARR(e)[el.dataset.narr]; if (!n) return;
+      const audio = new Audio(); audio.preload = "metadata"; audio.src = e.base + n.src; applyRate(audio, P.settings.rate || 1);
+      players.add(audio);
+      const btn = el.querySelector(".play-big"), seek = el.querySelector('[data-role="nseek"]'), time = el.querySelector('[data-role="ntime"]');
+      const upd = () => { const d = audio.duration || n.duration; time.textContent = fmtTime(audio.currentTime) + " / " + fmtTime(d); if (!seek.matches(":active")) seek.value = d ? Math.round((audio.currentTime / d) * 1000) : 0; };
+      audio.addEventListener("timeupdate", upd); audio.addEventListener("loadedmetadata", upd);
+      audio.addEventListener("ended", () => { btn.innerHTML = ICON.play; btn.setAttribute("aria-label", "Ouvir este texto"); });
+      seek.addEventListener("input", () => { const d = audio.duration || 0; if (d) audio.currentTime = (seek.value / 1000) * d; });
+      el._toggle = () => {
+        if (!audio.paused) { audio.pause(); btn.innerHTML = ICON.play; btn.setAttribute("aria-label", "Continuar a leitura"); return; }
+        stopAll(); current = { audio };
+        if (audio.ended) audio.currentTime = 0;
+        audio.play().then(() => { btn.innerHTML = ICON.pause; btn.setAttribute("aria-label", "Pausar a leitura"); }).catch(() => toast("Toque de novo para ouvir."));
+      };
+      el._back = () => { audio.currentTime = Math.max(0, audio.currentTime - 10); };
+    });
+  }
   const clip = new Audio();
   function playClip(src, onEnd, own) {
     stopAll();
@@ -510,7 +544,7 @@
           <div class="photo-fallback" hidden><span class="small muted">A foto não pode ser exibida nesta prévia. No site publicado ela aparece aqui.</span><a href="${esc(c.image.page)}" target="_blank" rel="noopener">Ver a foto</a></div>
           <figcaption>${esc(c.image.credit)}. Licença <a href="${esc(c.image.licenseUrl)}" target="_blank" rel="noopener">${esc(c.image.license)}</a>.${c.image.note ? " " + esc(c.image.note) : ""}</figcaption></figure>`
         : c.illustration && ILL()[c.illustration] ? `<figure class="figure">${ILL()[c.illustration]}</figure>` : "";
-      return `${audioBox("", "Cada frase útil tem o seu botão de ouvir.")}
+      return `${narrBox(e, c.id, "Cada frase útil também tem o seu botão de ouvir.")}
         ${img}<p>${esc(c.intro)}</p>
         <div class="stack"><h3>Como agir</h3><ol class="steps-list">${c.steps.map((x) => `<li><p>${esc(x)}</p></li>`).join("")}</ol></div>
         <div class="stack"><h3>Frases úteis</h3>${c.phrases.map((ph) => `<div class="phrase-row">
@@ -531,7 +565,7 @@
     },
     place(e) {
       const p = e.place, tube = e.culture.find((c) => c.title === "The Tube");
-      return `<figure class="figure">
+      return `${narrBox(e, "place")}<figure class="figure">
           <img src="${esc(p.img)}" alt="${esc(p.alt)}" loading="lazy" onerror="this.hidden=true;this.nextElementSibling.hidden=false">
           <div class="photo-fallback" hidden><b>${esc(p.title)}</b><span class="small muted">A foto não pode ser exibida nesta prévia. No site publicado ela aparece aqui.</span><a href="${esc(p.page)}" target="_blank" rel="noopener">Ver a foto no Geograph</a></div>
           <figcaption>${esc(p.credit)}. Licença <a href="${esc(p.licenseUrl)}" target="_blank" rel="noopener">${esc(p.license)}</a>. <a href="${esc(p.page)}" target="_blank" rel="noopener">Página da foto</a>.</figcaption>
@@ -541,7 +575,7 @@
         <p class="small muted">Fonte do trajeto: <a href="${esc(e.sources[0].url)}" target="_blank" rel="noopener">${esc(e.sources[0].title)}</a></p>`;
     },
     culture(e) {
-      return e.culture.filter((c) => c.title !== "The Tube").map((c) => `<div class="stack"><h3>${esc(c.title)}</h3><p>${esc(c.body)}</p></div>`).join("");
+      return narrBox(e, "culture") + e.culture.filter((c) => c.title !== "The Tube").map((c) => `<div class="stack"><h3>${esc(c.title)}</h3><p>${esc(c.body)}</p></div>`).join("");
     },
     howto() {
       return `<ol class="steps-list">
@@ -793,6 +827,7 @@
         ${["listen", "gist", "detail"].includes(a.type) ? `<p class="small muted pending" data-role="pending">${pendingText(e, st, a)}</p>` : ""}
       </footer></article>`;
     mountPlayers(app, e, st);
+    mountNarr(app, e);
   }
 
   function viewProgress() {
@@ -1018,6 +1053,8 @@
       case "pp": { const p = t.closest(".player"); if (p._toggle) p._toggle(); return; }
       case "rewind": { const p = t.closest(".player"); if (p._rewind) p._rewind(); return; }
       case "ver": { const p = t.closest(".player"); if (p._ver) p._ver(t.dataset.ver); return; }
+      case "narrpp": { const p = t.closest(".narr"); if (p._toggle) p._toggle(); return; }
+      case "narrback": { const p = t.closest(".narr"); if (p._back) p._back(); return; }
       case "loop": { const p = t.closest(".player"); if (p._loop) p._loop(); return; }
       case "answer": {
         const q = allQs(e).find((x) => x.id === t.dataset.q), i = Number(t.dataset.i);
@@ -1239,7 +1276,7 @@
 
   // ---------- início ----------
   function loadScripts() {
-    const list = ((window.COURSE && window.COURSE.episodes) || []).map((m) => m.file);
+    const list = ((window.COURSE && window.COURSE.episodes) || []).flatMap((m) => [m.file, m.narration].filter(Boolean));
     if (!window.ILLUSTRATIONS) list.push("assets/illustrations.js");
     if (!window.GLOSSARY) list.push("content/glossary/glossary.js");
     return Promise.all(list.map((src) => new Promise((res) => {

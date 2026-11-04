@@ -20,6 +20,7 @@ content/epNN/
   audio/*.mp3         áudios gerados
 tools/build_episode.py  gera áudios e episode.js
 tools/build_glossary.py gera áudios e glossary.js do glossário
+tools/build_narration.py gera o leitor em português dos textos de apoio (narration.js)
 tools/make_preview.py   gera a prévia para o claude.ai
 ```
 
@@ -27,6 +28,7 @@ tools/make_preview.py   gera a prévia para o claude.ai
 
 1. Escreva `content/epNN/source.json` seguindo o formato do `ep01`.
 2. Gere os áudios: `python3 tools/build_episode.py content/epNN <pasta-dos-modelos>`
+   - Leitor em português (opcional): escreva `narration` no source.json e rode `python3 tools/build_narration.py content/epNN <pasta-dos-modelos>`. Acrescente `narration: "content/epNN/narration.js"` ao episódio em `content/manifest.js`.
    - Requer `pip install kokoro-onnx soundfile` e `ffmpeg`.
    - Os modelos (`kokoro-v1.0.onnx`, `voices-v1.0.bin`) vêm de https://github.com/thewh1teagle/kokoro-onnx/releases/tag/model-files-v1.0 e não ficam no repositório.
 3. Acrescente o episódio em `content/manifest.js`.

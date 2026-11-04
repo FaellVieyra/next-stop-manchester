@@ -9,6 +9,7 @@ window.COURSE = {
     {
       id: "ep01",
       file: "content/ep01/episode.js",
+      narration: "content/ep01/narration.js",
       downloads: [
         { file: "content/ep01/downloads/ep01-first-morning-dialogo-clara.mp3", label: "Diálogo — versão clara", duration: 60, size: 716144 },
         { file: "content/ep01/downloads/ep01-first-morning-dialogo-natural.mp3", label: "Diálogo — versão natural", duration: 47, size: 568690 },

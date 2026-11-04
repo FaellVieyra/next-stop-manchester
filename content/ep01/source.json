@@ -821,5 +821,185 @@
         }
       ]
     }
-  ]
+  ],
+  "narration": {
+    "place": [
+      "Lugar real.",
+      {
+        "pause": 0.7
+      },
+      "Heathrow, terminais 2 e 3: estação do Tube.",
+      {
+        "pause": 0.9
+      },
+      "Interior da estação da linha Piccadilly que atende os terminais 2 e 3 de Heathrow. É daqui que sai o trajeto mais barato e mais demorado até o centro de Londres, o mesmo que Davi fez.",
+      {
+        "pause": 0.9
+      },
+      "O Tube é o metrô de Londres. De Heathrow ao centro, a linha Piccadilly do Tube é mais barata que a Elizabeth line e o Heathrow Express, porém mais demorada: por volta de 50 minutos até Piccadilly Circus.",
+      {
+        "pause": 0.7
+      },
+      "Manchester não tem Tube. Lá, o transporte sobre trilhos da cidade é o Metrolink, um sistema de bondes."
+    ],
+    "culture": [
+      "Costumes.",
+      {
+        "pause": 0.9
+      },
+      "Falar do tempo.",
+      {
+        "pause": 0.7
+      },
+      "Comentar o tempo é o jeito mais comum de puxar conversa na Inglaterra. A resposta",
+      {
+        "en": "Freezing! And it rained, of course."
+      },
+      "tem ironia: chuva em Londres é tão esperada que vira piada. Por isso, Sam responde",
+      {
+        "en": "Welcome to London!"
+      },
+      {
+        "pause": 1.0
+      },
+      "Pergunta sobre o trabalho:",
+      {
+        "en": "What do you do?"
+      },
+      {
+        "pause": 0.7
+      },
+      "Ao conhecer alguém, é comum perguntar o trabalho logo no início. Uma resposta curta e clara, como",
+      {
+        "en": "I'm a... I work as..."
+      },
+      "seguida de uma pergunta de volta, mantém a conversa andando:",
+      {
+        "en": "And you? What about you?"
+      }
+    ],
+    "pr1": [
+      "Na prática.",
+      {
+        "pause": 0.5
+      },
+      "Do aeroporto ao centro pelo Tube.",
+      {
+        "pause": 0.9
+      },
+      "Em Heathrow, a linha Piccadilly do Tube tem estações nos terminais 2 e 3, no 4 e no 5. É a opção mais barata e mais demorada até o centro: cerca de 50 minutos. Dá para pagar por aproximação, com cartão ou celular.",
+      {
+        "pause": 0.9
+      },
+      "Como agir.",
+      {
+        "pause": 0.5
+      },
+      "Primeiro: siga as placas do Underground até a estação do seu terminal. Nos terminais 2 e 3, ela fica entre os dois, ligada por uma passagem subterrânea. No 4, abaixo do desembarque. No 5, no subsolo.",
+      {
+        "pause": 0.7
+      },
+      "Segundo: na catraca, encoste o cartão por aproximação ou o celular no leitor amarelo para entrar. Em inglês:",
+      {
+        "en": "touch in."
+      },
+      {
+        "pause": 0.7
+      },
+      "Terceiro: use o mesmo cartão ou aparelho na entrada e na saída, e mantenha outros cartões longe do leitor. Misturar pode gerar cobrança errada.",
+      {
+        "pause": 0.7
+      },
+      "Quarto: antes de embarcar, confira o destino do trem. Se tiver dúvida, pergunte a um funcionário.",
+      {
+        "pause": 0.7
+      },
+      "Quinto: na saída, encoste o mesmo cartão no leitor amarelo de novo. Em inglês:",
+      {
+        "en": "touch out."
+      },
+      "Há um limite de gasto por dia e por semana.",
+      {
+        "pause": 0.9
+      },
+      "Frases úteis.",
+      {
+        "pause": 0.5
+      },
+      {
+        "en": "Excuse me, where's the Underground?"
+      },
+      "Com licença, onde fica o metrô?",
+      {
+        "pause": 0.7
+      },
+      {
+        "en": "Is this the right platform for central London?"
+      },
+      "Esta é a plataforma certa para o centro de Londres?",
+      {
+        "pause": 0.7
+      },
+      {
+        "en": "Can I pay with my card here?"
+      },
+      "Posso pagar com meu cartão aqui?",
+      {
+        "pause": 0.9
+      },
+      "Em Manchester: o bonde da cidade, o Metrolink, também aceita aproximação, mas os leitores ficam nas plataformas. Encoste ao entrar e ao sair, com o mesmo cartão. Quem não encosta na saída em até 120 minutos paga uma tarifa de viagem incompleta."
+    ],
+    "pr2": [
+      "Na prática.",
+      {
+        "pause": 0.5
+      },
+      "O chá na rotina.",
+      {
+        "pause": 0.9
+      },
+      "Oferecer chá é um gesto comum de boas-vindas, em casa e no trabalho. Numa pesquisa do YouGov de 2018, cerca de 8 em cada 10 pessoas que tomam chá colocam leite, e a maioria coloca o leite depois do chá. Cerca de um quarto adiciona açúcar.",
+      {
+        "pause": 0.9
+      },
+      "Como agir.",
+      {
+        "pause": 0.5
+      },
+      "Primeiro: quando alguém oferecer, aceite ou recuse de forma simples. Recusar não é falta de educação.",
+      {
+        "pause": 0.7
+      },
+      "Segundo: se aceitar, diga como prefere: com ou sem leite, com ou sem açúcar.",
+      {
+        "pause": 0.7
+      },
+      "Terceiro: em muitos escritórios, quem vai preparar chá pergunta aos colegas se querem também. É um costume comum, não uma regra, e varia de lugar para lugar.",
+      {
+        "pause": 0.9
+      },
+      "Frases úteis.",
+      {
+        "pause": 0.5
+      },
+      {
+        "en": "Do you fancy a cuppa?"
+      },
+      "Quer um chá?",
+      {
+        "pause": 0.7
+      },
+      {
+        "en": "Yes, please. Milk, no sugar."
+      },
+      "Sim, por favor. Com leite, sem açúcar.",
+      {
+        "pause": 0.7
+      },
+      {
+        "en": "I'm fine, thanks."
+      },
+      "Não precisa, obrigado."
+    ]
+  }
 }
